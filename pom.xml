@@ -3,11 +3,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.microsoft.azure</groupId>
-  <artifactId>aad-java-manage-resources-from-vm-with-msi</artifactId>
+  <artifactId>explicit-msi-login</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>ManageStorageFromMSIEnabledVirtualMachine.java</name>
+  <name>ExplicitMSILogin.java</name>
   <description></description>
-  <url>https://github.com/Azure/aad-java-manage-resources-from-vm-with-msi</url>
   <build>
     <plugins>
       <plugin>
@@ -15,7 +14,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.4.0</version>
         <configuration>
-          <mainClass>com.microsoft.azure.management.compute.samples.ManageStorageFromMSIEnabledVirtualMachine</mainClass>
+          <mainClass>com.microsoft.azure.management.compute.samples.ExplicitMSILogin</mainClass>
         </configuration>
       </plugin>
       <plugin>
@@ -40,7 +39,7 @@
               </descriptorRefs>
               <archive>
                 <manifest>
-                  <mainClass>com.microsoft.azure.management.compute.samples.ManageStorageFromMSIEnabledVirtualMachine.java</mainClass>
+                  <mainClass>com.microsoft.azure.management.compute.samples.ExplicitMSILogin.java</mainClass>
                 </manifest>
               </archive>
             </configuration>
