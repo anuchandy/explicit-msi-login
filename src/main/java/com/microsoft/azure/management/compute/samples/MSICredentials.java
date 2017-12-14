@@ -28,7 +28,7 @@ public class MSICredentials extends AzureTokenCredentials {
     private final int msiPort;
     private final AzureJacksonAdapter adapter;
     private String objectId;
-    private String servicePrincipalId;
+    private String clientId;
     private String identityId;
 
 
@@ -63,30 +63,30 @@ public class MSICredentials extends AzureTokenCredentials {
     }
 
     /**
-     * Specifies the service principal object id associated with a user assigned managed
-     * service identity resource that should be used to retrieve the access token.
+     * Specifies the object id associated with a user assigned managed service identity
+     * resource that should be used to retrieve the access token.
      *
-     * @param objectId the service principal object id
+     * @param objectId Object ID of the identity to use when authenticating to Azure AD.
      * @return MSICredentials
      */
     @Beta
     public MSICredentials withObjectId(String objectId) {
         this.objectId = objectId;
-        this.servicePrincipalId = null;
+        this.clientId = null;
         this.identityId = null;
         return this;
     }
 
     /**
-     * Specifies the service principal id associated with a user assigned managed service identity
+     * Specifies the application id (client id) associated with a user assigned managed service identity
      * resource that should be used to retrieve the access token.
      *
-     * @param servicePrincipalId the service principal id or graph application id
+     * @param clientId application id (client id) of the identity to use when authenticating to Azure AD.
      * @return MSICredentials
      */
     @Beta
-    public MSICredentials withServicePrincipalId(String servicePrincipalId) {
-        this.servicePrincipalId = servicePrincipalId;
+    public MSICredentials withClientId(String clientId) {
+        this.clientId = clientId;
         this.objectId = null;
         this.identityId = null;
         return this;
@@ -102,7 +102,7 @@ public class MSICredentials extends AzureTokenCredentials {
     @Beta
     public MSICredentials withIdentityId(String identityId) {
         this.identityId = identityId;
-        this.servicePrincipalId = null;
+        this.clientId = null;
         this.objectId = null;
         return this;
     }
@@ -113,10 +113,10 @@ public class MSICredentials extends AzureTokenCredentials {
         String postData = String.format("resource=%s", this.resource);
         if (this.objectId != null) {
             postData += String.format("&object_id=%s", this.objectId);
-        } else if (this.servicePrincipalId != null) {
-            postData += String.format("&client_id=%s", this.servicePrincipalId);
+        } else if (this.clientId != null) {
+            postData += String.format("&client_id=%s", this.clientId);
         } else if (this.identityId != null) {
-            postData += String.format("&ms_res_id=%s", this.identityId);
+            postData += String.format("&msi_res_id=%s", this.identityId);
         }
         HttpURLConnection connection = null;
 
@@ -141,6 +141,9 @@ public class MSICredentials extends AzureTokenCredentials {
 
             MSIToken msiToken = adapter.deserialize(result, MSIToken.class);
             return msiToken.accessToken;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
         } finally {
             if (connection != null) {
                 connection.disconnect();
