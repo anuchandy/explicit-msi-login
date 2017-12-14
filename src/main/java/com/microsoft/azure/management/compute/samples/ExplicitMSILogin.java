@@ -50,7 +50,7 @@ public final class ExplicitMSILogin {
                     this.put("portalUrl", "http://go.microsoft.com/fwlink/?LinkId=254433");
                     this.put("publishingProfileUrl", "http://go.microsoft.com/fwlink/?LinkId=254432");
                     this.put("managementEndpointUrl", "https://management.core.windows.net/");
-                    this.put("resourceManagerEndpointUrl", "https://brazilus.management.azure.com/");
+                    this.put("resourceManagerEndpointUrl", "https://management.azure.com/");
                     this.put("sqlManagementEndpointUrl", "https://management.core.windows.net:8443/");
                     this.put("sqlServerHostnameSuffix", ".database.windows.net");
                     this.put("galleryEndpointUrl", "https://gallery.azure.com/");
